@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\CMSIS;..\Libraries\FWlib\inc;..\Libraries\FWlib\src;..\User;..\DRV;..\HARDWARE;..\HARDWARE\MOTO;..\HARDWARE\OLED;..\HARDWARE\PID</IncludePath>
+              <IncludePath>..\Libraries\CMSIS;..\Libraries\FWlib\inc;..\Libraries\FWlib\src;..\User;..\DRV;..\HARDWARE;..\HARDWARE\MOTO;..\HARDWARE\OLED;..\HARDWARE\PID;..\HARDWARE\TRACK</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -590,6 +590,16 @@
               <FileName>car.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\MOTO\car.c</FilePath>
+            </File>
+            <File>
+              <FileName>track.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\TRACK\track.c</FilePath>
+            </File>
+            <File>
+              <FileName>track.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HARDWARE\TRACK\track.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -42,3 +42,4 @@
 ..\output\pid.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\output\pid.o: ..\HARDWARE\MOTO\moto.h
 ..\output\pid.o: ..\HARDWARE\PID\pid.h
+..\output\pid.o: ..\HARDWARE\TRACK\track.h

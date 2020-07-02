@@ -27,9 +27,12 @@
 #define 	CAR_CTRL     							4
 #define 	SPEED_MSR 								5
 #define 	BAT_MSR     							6
-#define 	HELP 											7
+#define 	TRACK_MODE   							7
+#define 	HELP 											8
 int menuState;
 int LFT_MOTOR_TEST_NUM;
+
+int carStatus;
 
 extern __IO uint16_t ADC_ConvertedValue;
 extern int Encoder_Left,Encoder_Right;  //编码器脉冲数
@@ -55,8 +58,9 @@ int main(void)
 	STM32_System_Init();//所有系统配置在这个函数里完成
 //	OLED_ShowString(0,0, "BAT:      V  OK",12);//显示电池电压：7.4V,正常值6.2-8,否则需要充电
 //	OLED_ShowString(0,1, "SYS:      V  OK",12);//显示电池电压：5V
-	menuState = 0; 
+	menuState = TRACK_MODE; 
 	LFT_MOTOR_TEST_NUM = 1;
+	carStatus = 0;
 //*****************************************************************//
 	while (1)
 	{
@@ -151,6 +155,19 @@ int main(void)
 				ADC_ConvertedValueLocal =(float) ADC_ConvertedValue/4096*3.3; 
 				ADC_VoltageShow = ADC_ConvertedValueLocal*1000;
 				OLED_ShowNum(32,2,ADC_VoltageShow,4,16); 
+				if( Key_Scan(GPIOC,GPIO_Pin_8,0) == 0)//切换显示界面按钮
+				{
+					menuState = TRACK_MODE;    //MAINMENU
+					OLED_Clear();
+					OLED_ShowString(0,0, "     Track Mode    ",16);
+					OLED_ShowString(0,2,"   Smart Car",16);
+					OLED_ShowString(0,4,"     fsl   ",16);        
+					OLED_ShowString(0,6,"  2020-06-29  ",16);  
+				}
+				break;
+			}
+			case TRACK_MODE: {
+				TRACK();
 				if( Key_Scan(GPIOC,GPIO_Pin_8,0) == 0)//切换显示界面按钮
 				{
 					menuState = MAINMENU;    //MAINMENU

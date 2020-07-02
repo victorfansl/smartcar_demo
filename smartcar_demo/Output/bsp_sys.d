@@ -42,3 +42,4 @@
 ..\output\bsp_sys.o: ..\HARDWARE\MOTO\moto.h
 ..\output\bsp_sys.o: ..\HARDWARE\PID\pid.h
 ..\output\bsp_sys.o: ..\DRV\bsp_sys.h
+..\output\bsp_sys.o: ..\HARDWARE\TRACK\track.h

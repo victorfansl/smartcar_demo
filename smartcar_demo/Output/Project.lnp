@@ -37,6 +37,7 @@
 "..\output\oled.o"
 "..\output\pid.o"
 "..\output\car.o"
+"..\output\track.o"
 "..\output\main.o"
 "..\output\stm32f10x_it.o"
 --strict --scatter "..\Output\Project.sct"

@@ -19,11 +19,7 @@
 #define KEY_CLK  RCC_APB2Periph_GPIOC
 #define KEY_PORT GPIOC
 
-//寻迹传感器从右到左以此O1 O2 O3 O4 
-#define Find_O1 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_3)	   //定义循迹模块的输入接口
-#define Find_O2 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_4)
-#define Find_O3 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_5)
-#define Find_O4 GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6)
+
 
 
 /* 带参宏，可以像内联函数一样使用 */
@@ -60,6 +56,5 @@ void LED_Flash(int timer);
 void KEY_GPIO_Config(void);
 uint8_t Key_Scan(GPIO_TypeDef* GPIOx,u16 GPIO_Pin,uint8_t ONSTS);
 
-void TRACK_IO_Init(void);
 
 #endif /* __LED_H */
