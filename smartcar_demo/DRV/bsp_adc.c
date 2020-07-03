@@ -1,6 +1,8 @@
 #include "bsp_adc.h"
 
 __IO uint16_t ADC_ConvertedValue;
+uint16_t ADC_ConvertedValueBuf[16];
+int adCapTime;
 
 
 /**
@@ -107,8 +109,13 @@ static void ADC_NVIC_Config(void)
   */
 void ADCx_Init(void)
 {
+	int i;
 	ADCx_GPIO_Config();
 	ADCx_Mode_Config();
 	ADC_NVIC_Config();
+	adCapTime = 0;
+	for(i=0;i<16;i++)
+		ADC_ConvertedValueBuf[i] = 0;
+	
 }
 /*********************************************END OF FILE**********************/

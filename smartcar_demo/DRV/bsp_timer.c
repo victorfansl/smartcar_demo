@@ -124,6 +124,8 @@ void Timer6_Init(void)
 //PA1----接 编码器B相 或者电机驱动的BM2B标识
 void Encoder_Init_TIM2(void)
 {
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;  
   TIM_ICInitTypeDef TIM_ICInitStructure;  
   GPIO_InitTypeDef GPIO_InitStructure;
@@ -146,6 +148,14 @@ void Encoder_Init_TIM2(void)
   TIM_ICInit(TIM2, &TIM_ICInitStructure);
   TIM_ClearFlag(TIM2, TIM_FLAG_Update);//清除TIM的更新标志位
   TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
+	
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+	NVIC_InitStructure.NVIC_IRQChannel=TIM2_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=5;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+	
   //Reset counter
   TIM_SetCounter(TIM2,0);
   TIM_Cmd(TIM2, ENABLE); 
@@ -157,6 +167,8 @@ void Encoder_Init_TIM2(void)
 //PB7----接 编码器A相 或者电机驱动的BM1A标识
 void Encoder_Init_TIM4(void)
 {
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;  
   TIM_ICInitTypeDef TIM_ICInitStructure;  
   GPIO_InitTypeDef GPIO_InitStructure;
@@ -179,6 +191,13 @@ void Encoder_Init_TIM4(void)
   TIM_ICInit(TIM4, &TIM_ICInitStructure);
   TIM_ClearFlag(TIM4, TIM_FLAG_Update);//清除TIM的更新标志位
   TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);
+	
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+	NVIC_InitStructure.NVIC_IRQChannel=TIM4_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=5;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
   //Reset counter
   TIM_SetCounter(TIM4,0);
   TIM_Cmd(TIM4, ENABLE); 

@@ -27,7 +27,8 @@
 #include "stm32f10x_it.h"
 #include "bsp_adc.h"
 extern __IO uint16_t ADC_ConvertedValue;
-
+extern uint16_t ADC_ConvertedValueBuf[16];
+extern int adCapTime;
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -141,10 +142,23 @@ void PendSV_Handler(void)
 //}
 void ADC_IRQHandler(void)
 {	
+	uint16_t ADC_ConvertedValueTemp;
+	int i;
+	int sum;
 	if (ADC_GetITStatus(ADCx,ADC_IT_EOC)==SET) 
 	{
 		// 读取ADC的转换值
-		ADC_ConvertedValue = ADC_GetConversionValue(ADCx);
+		ADC_ConvertedValueTemp = ADC_GetConversionValue(ADCx);
+		ADC_ConvertedValueBuf[adCapTime] = ADC_ConvertedValueTemp; 
+		adCapTime++;
+		if(adCapTime>=16)
+		{
+			adCapTime = 0;
+			sum = 0;
+			for(i=0;i<16;i++)
+				sum+= ADC_ConvertedValueBuf[i];
+			ADC_ConvertedValue = sum/16;
+		}
 	}
 	ADC_ClearITPendingBit(ADCx,ADC_IT_EOC);
 }

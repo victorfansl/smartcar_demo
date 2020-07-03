@@ -143,11 +143,33 @@ int main(void)
 			case RHT_MOTOR_TEST: {
 				if( Key_Scan(GPIOC,GPIO_Pin_8,0) == 0)//切换显示界面按钮
 				{
+					menuState = CAR_CTRL;    //MAINMENU
+					OLED_Clear();
+					OLED_ShowString(0,0, "     CAR_CTRL   ",16);
+					OLED_ShowString(0,2, "  PWM+ ",16);
+					OLED_ShowString(0,4, "  PWM- ",16);
+					//OLED_ShowString(0,6, "  DIR   + ",16);
+					//LFT_MOTOR_TEST_NUM = 1;
+					OLED_ShowString(8*12,2, "<- ",16);
+					TIM3->CCR3 =2400;	
+					TIM3->CCR4 =2500;
+					Car_Go();
+				}
+				break;
+			}
+			case CAR_CTRL: {
+				temp1 = TIM2 -> CNT;
+				temp2 = TIM4 -> CNT;
+				OLED_ShowNum(0,6,temp1,6,16); 
+				if( Key_Scan(GPIOC,GPIO_Pin_8,0) == 0)//切换显示界面按钮
+				{
 					menuState = BAT_MSR;    //MAINMENU
 					OLED_Clear();
 					OLED_ShowString(0,0, "     BAT  MSR    ",16);
 					OLED_ShowString(0,2,"         mV",16);
- 
+					//TIM3->CCR3 =2700;	
+					//TIM3->CCR4 =2800;
+					//Car_Go();
 				}
 				break;
 			}
