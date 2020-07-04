@@ -2,11 +2,12 @@
 #include "pid.h"
 
 int Encoder_Left,Encoder_Right;  //编码器脉冲数
+int leftEncoderOvfTimes,rightEncoderOvfTimes;
 int Moto_Left,Moto_Right; 
 int para_L,para_R;//增量
 
 //这个设置很重要
-int SetPoint=50;//设置目标值单位RPM，如果转换成线速度  = setopint*轮子周长 = setpoint*3.14*0.065(轮子直径65mm) 单位就是m/min  一定要搞清楚车轮转速和线速的关系
+int SetPoint=70;//设置目标值单位RPM，如果转换成线速度  = setopint*轮子周长 = setpoint*3.14*0.065(轮子直径65mm) 单位就是m/min  一定要搞清楚车轮转速和线速的关系
 
 
 //使用减速比是1：120的减速箱。根据实际电机的减速比的配置修改以下参数

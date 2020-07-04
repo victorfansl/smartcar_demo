@@ -24,7 +24,7 @@
 #define 	TRACT_IO_TEST     				1
 #define 	LFT_MOTOR_TEST 						2
 #define 	RHT_MOTOR_TEST 						3
-#define 	CAR_CTRL     							4
+#define 	MILOMETER     							4
 #define 	SPEED_MSR 								5
 #define 	BAT_MSR     							6
 #define 	TRACK_MODE   							7
@@ -33,9 +33,11 @@ int menuState;
 int LFT_MOTOR_TEST_NUM;
 
 int carStatus;
+int disL,disR;
 
 extern __IO uint16_t ADC_ConvertedValue;
 extern int Encoder_Left,Encoder_Right;  //编码器脉冲数
+extern int leftEncoderOvfTimes,rightEncoderOvfTimes;
 
 // 局部变量，用于保存转换计算后的电压值 	 
 float ADC_ConvertedValueLocal; 
@@ -58,20 +60,25 @@ int main(void)
 	STM32_System_Init();//所有系统配置在这个函数里完成
 //	OLED_ShowString(0,0, "BAT:      V  OK",12);//显示电池电压：7.4V,正常值6.2-8,否则需要充电
 //	OLED_ShowString(0,1, "SYS:      V  OK",12);//显示电池电压：5V
-	menuState = TRACK_MODE; 
+	menuState = MAINMENU; 
 	LFT_MOTOR_TEST_NUM = 1;
 	carStatus = 0;
+	leftEncoderOvfTimes=0;
+	rightEncoderOvfTimes=0;
 //*****************************************************************//
 	while (1)
 	{
 		switch(menuState)
 		{
 			case MAINMENU: {
+				//Car_Go();
 				if( Key_Scan(GPIOC,GPIO_Pin_8,0) == 0)//切换显示界面按钮
 				{	
 					menuState = TRACT_IO_TEST;    //TRACK IO TEST
 					OLED_Clear();
 					OLED_ShowString(0,0, "  TRACK IO ",16);
+					//printf("stm32\n\n\n\n");
+					USART_SendData(USART1, 0xaa);
 				} 					
 				break;
 			}
@@ -143,24 +150,31 @@ int main(void)
 			case RHT_MOTOR_TEST: {
 				if( Key_Scan(GPIOC,GPIO_Pin_8,0) == 0)//切换显示界面按钮
 				{
-					menuState = CAR_CTRL;    //MAINMENU
+					menuState = MILOMETER;    //MAINMENU
 					OLED_Clear();
-					OLED_ShowString(0,0, "     CAR_CTRL   ",16);
-					OLED_ShowString(0,2, "  PWM+ ",16);
-					OLED_ShowString(0,4, "  PWM- ",16);
+					OLED_ShowString(0,0, "     MILOMETER   ",16);
+//					OLED_ShowString(0,2, "  PWM+ ",16);
+//					OLED_ShowString(0,4, "  PWM- ",16);
 					//OLED_ShowString(0,6, "  DIR   + ",16);
 					//LFT_MOTOR_TEST_NUM = 1;
-					OLED_ShowString(8*12,2, "<- ",16);
+					//OLED_ShowString(8*12,2, "<- ",16);
 					TIM3->CCR3 =2400;	
 					TIM3->CCR4 =2500;
-					Car_Go();
+					Car_Turn_Right();
 				}
 				break;
 			}
-			case CAR_CTRL: {
+			case MILOMETER: {
 				temp1 = TIM2 -> CNT;
 				temp2 = TIM4 -> CNT;
-				OLED_ShowNum(0,6,temp1,6,16); 
+				disL = (leftEncoderOvfTimes*60000+temp1)/2496*65*3142/1000000;
+				disR = (rightEncoderOvfTimes*60000+temp2)/2496*65*3142/1000000;
+				OLED_ShowNum(0,2,temp1,6,16); 
+				OLED_ShowNum(64,2,temp2,6,16); 
+				OLED_ShowNum(0,4,leftEncoderOvfTimes,6,16); 
+				OLED_ShowNum(64,4,rightEncoderOvfTimes,6,16); 
+				OLED_ShowNum(0,6,disL,6,16); 
+				OLED_ShowNum(64,6,disR,6,16); 
 				if( Key_Scan(GPIOC,GPIO_Pin_8,0) == 0)//切换显示界面按钮
 				{
 					menuState = BAT_MSR;    //MAINMENU

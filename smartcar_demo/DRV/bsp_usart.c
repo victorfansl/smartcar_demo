@@ -37,6 +37,8 @@ void USART1_Init(u32 bound)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
 	
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
 	/* config USART1 clock */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
 	
@@ -59,6 +61,21 @@ void USART1_Init(u32 bound)
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 	USART_Init(USART1, &USART_InitStructure);
+	
+	  /* 嵌套向量中断控制器组选择 */
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+  
+  /* 配置USART为中断源 */
+  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+  /* 抢断优先级*/
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  /* 子优先级 */
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  /* 使能中断 */
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  /* 初始化配置NVIC */
+  NVIC_Init(&NVIC_InitStructure);
+	
 	
 	/* 使能串口1接收中断 */
 	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);

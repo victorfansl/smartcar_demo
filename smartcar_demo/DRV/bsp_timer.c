@@ -13,6 +13,8 @@
 
 #include "bsp_timer.h"
 
+extern int leftEncoderOvfTimes,rightEncoderOvfTimes;
+
 //***************************定时器3初始化 给电机提供PWM***************************//
 // TIM_Period / Auto Reload Register(ARR) = 1000   TIM_Prescaler--71  
 //arr：自动重装寄存器，psc分频系数
@@ -231,7 +233,8 @@ int Read_Encoder(u8 TIMX)
 void TIM4_IRQHandler(void)
 { 		    		  			    
 	if(TIM4->SR&0X0001)//溢出中断
-	{    				   				     	    	
+	{ 
+		rightEncoderOvfTimes++;		
 	}				   
 	TIM4->SR&=~(1<<0);//清除中断标志位 	    
 }
@@ -243,7 +246,8 @@ void TIM4_IRQHandler(void)
 void TIM2_IRQHandler(void)
 { 		    		  			    
 	if(TIM2->SR&0X0001)//溢出中断
-	{    				   				     	    	
+	{    		
+		leftEncoderOvfTimes++;		
 	}				   
 	TIM2->SR&=~(1<<0);//清除中断标志位 	    
 }
