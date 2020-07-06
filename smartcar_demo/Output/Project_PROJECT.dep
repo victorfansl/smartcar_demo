@@ -1142,7 +1142,7 @@ I (..\Libraries\FWlib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\Libraries\FWlib\inc\misc.h)(0x4D783BB4)
 I (..\DRV\bsp_iic.h)(0x589A930A)
 I (C:\Keil_v5\ARM\ARMCC\include\inttypes.h)(0x599ECD2E)
-F (..\User\main.c)(0x5F01BA5F)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\CMSIS -I ..\Libraries\FWlib\inc -I ..\Libraries\FWlib\src -I ..\User -I ..\DRV -I ..\HARDWARE -I ..\HARDWARE\MOTO -I ..\HARDWARE\OLED -I ..\HARDWARE\PID -I ..\HARDWARE\TRACK -I ..\HARDWARE\INA-I.\RTE\_PROJECT-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
+F (..\User\main.c)(0x5F028DBF)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\Libraries\CMSIS -I ..\Libraries\FWlib\inc -I ..\Libraries\FWlib\src -I ..\User -I ..\DRV -I ..\HARDWARE -I ..\HARDWARE\MOTO -I ..\HARDWARE\OLED -I ..\HARDWARE\PID -I ..\HARDWARE\TRACK -I ..\HARDWARE\INA-I.\RTE\_PROJECT-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
 I (..\Libraries\CMSIS\stm32f10x.h)(0x4D783CB4)
 I (..\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599ECD2E)

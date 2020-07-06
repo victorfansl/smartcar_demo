@@ -56,7 +56,8 @@ int main(void)
 	u32 ADC_VoltageShow; 
 	u32 temp1,temp2,temp3;
 	
-	unsigned short busV,shuntV; 
+	int busV,shuntV; 
+	unsigned int ubusV,ushuntV;
 //*****************************************************************//
 	
 //*****************************œµÕ≥≥ı º*****************************//
@@ -105,8 +106,28 @@ int main(void)
 				}	
 				busV = ina219_GetBusVoltage_mV();
 				shuntV = ina219_GetShuntVoltage_uV();
-				OLED_ShowNum(0,2,busV,6,16);
-				OLED_ShowNum(0,4,shuntV,6,16);				
+				if(busV<0)
+				{
+					ubusV = -busV;
+					OLED_ShowString(0,2, "-",16);
+				}
+				else
+				{
+					ubusV = busV;
+					OLED_ShowString(0,2, "+",16);
+				}
+				OLED_ShowNum(8,2,ubusV,6,16);
+				if(shuntV<0)
+				{
+					ushuntV = -shuntV;
+					OLED_ShowString(0,4, "-",16);
+				}
+				else
+				{
+					ushuntV = shuntV;
+					OLED_ShowString(0,4, "+",16);
+				}
+				OLED_ShowNum(8,4,ushuntV,6,16);				
 				break;
 			}
 			case TRACT_IO_TEST: {
