@@ -16,6 +16,7 @@
 #include "moto.h"
 #include "pid.h"
 #include "track.h"
+#include "ina219.h"
 
 void STM32_System_Init(void);
 

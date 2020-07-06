@@ -43,3 +43,4 @@
 ..\output\bsp_sys.o: ..\HARDWARE\PID\pid.h
 ..\output\bsp_sys.o: ..\DRV\bsp_sys.h
 ..\output\bsp_sys.o: ..\HARDWARE\TRACK\track.h
+..\output\bsp_sys.o: ..\HARDWARE\INA\ina219.h

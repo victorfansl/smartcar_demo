@@ -17,7 +17,7 @@
 #include "stm32f10x.h"
 #include "bsp_sys.h"
 #include "bsp_GPIO.h"
-
+#include "ina219.h"
 #include "stdio.h"
 
 #define 	MAINMENU 									0
@@ -39,6 +39,8 @@ extern __IO uint16_t ADC_ConvertedValue;
 extern int Encoder_Left,Encoder_Right;  //编码器脉冲数
 extern int leftEncoderOvfTimes,rightEncoderOvfTimes;
 
+extern int SetPoint;
+
 // 局部变量，用于保存转换计算后的电压值 	 
 float ADC_ConvertedValueLocal; 
 
@@ -53,6 +55,8 @@ int main(void)
 //***************************设置局部变量***************************//
 	u32 ADC_VoltageShow; 
 	u32 temp1,temp2,temp3;
+	
+	unsigned short busV,shuntV; 
 //*****************************************************************//
 	
 //*****************************系统初始*****************************//
@@ -65,13 +69,13 @@ int main(void)
 	carStatus = 0;
 	leftEncoderOvfTimes=0;
 	rightEncoderOvfTimes=0;
+	
 //*****************************************************************//
 	while (1)
 	{
 		switch(menuState)
 		{
-			case MAINMENU: {
-				//Car_Go();
+			case MAINMENU: {						
 				if( Key_Scan(GPIOC,GPIO_Pin_8,0) == 0)//切换显示界面按钮
 				{	
 					menuState = TRACT_IO_TEST;    //TRACK IO TEST
@@ -79,7 +83,30 @@ int main(void)
 					OLED_ShowString(0,0, "  TRACK IO ",16);
 					//printf("stm32\n\n\n\n");
 					USART_SendData(USART1, 0xaa);
-				} 					
+				} 
+				else if( Key_Scan(GPIOC,GPIO_Pin_12,0) == 0)   //执行按钮
+				{	
+					OLED_Clear();
+					busV = ina219_GetBusVoltage_mV();
+					shuntV = ina219_GetShuntVoltage_uV();
+					OLED_ShowNum(0,2,busV,6,16);
+					OLED_ShowNum(0,4,shuntV,6,16);	
+					OLED_ShowNum(0,0,SetPoint,6,16);	
+					Car_Go();
+				} 
+				else if(Key_Scan(GPIOC,GPIO_Pin_11,0) == 0)//向上切换按钮		
+				{
+					if(SetPoint<=200)
+					{
+						SetPoint++;
+						OLED_ShowNum(0,0,SetPoint,6,16);
+					}
+					
+				}	
+				busV = ina219_GetBusVoltage_mV();
+				shuntV = ina219_GetShuntVoltage_uV();
+				OLED_ShowNum(0,2,busV,6,16);
+				OLED_ShowNum(0,4,shuntV,6,16);				
 				break;
 			}
 			case TRACT_IO_TEST: {

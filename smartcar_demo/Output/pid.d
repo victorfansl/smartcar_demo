@@ -43,3 +43,4 @@
 ..\output\pid.o: ..\HARDWARE\MOTO\moto.h
 ..\output\pid.o: ..\HARDWARE\PID\pid.h
 ..\output\pid.o: ..\HARDWARE\TRACK\track.h
+..\output\pid.o: ..\HARDWARE\INA\ina219.h

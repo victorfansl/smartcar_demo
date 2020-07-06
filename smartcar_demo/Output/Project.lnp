@@ -38,6 +38,7 @@
 "..\output\pid.o"
 "..\output\car.o"
 "..\output\track.o"
+"..\output\ina219.o"
 "..\output\main.o"
 "..\output\stm32f10x_it.o"
 --strict --scatter "..\Output\Project.sct"

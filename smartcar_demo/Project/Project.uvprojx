@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\CMSIS;..\Libraries\FWlib\inc;..\Libraries\FWlib\src;..\User;..\DRV;..\HARDWARE;..\HARDWARE\MOTO;..\HARDWARE\OLED;..\HARDWARE\PID;..\HARDWARE\TRACK</IncludePath>
+              <IncludePath>..\Libraries\CMSIS;..\Libraries\FWlib\inc;..\Libraries\FWlib\src;..\User;..\DRV;..\HARDWARE;..\HARDWARE\MOTO;..\HARDWARE\OLED;..\HARDWARE\PID;..\HARDWARE\TRACK;..\HARDWARE\INA</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -600,6 +600,11 @@
               <FileName>track.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\HARDWARE\TRACK\track.h</FilePath>
+            </File>
+            <File>
+              <FileName>ina219.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\INA\ina219.c</FilePath>
             </File>
           </Files>
         </Group>

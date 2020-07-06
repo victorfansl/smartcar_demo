@@ -64,7 +64,10 @@ void STM32_System_Init(void)
 	TIM4 -> CNT=30000;
 	
   Timer6_Init();//最后启动定时器6
-	TIM_Cmd(TIM6, DISABLE);//启动定时器 
+	TIM_Cmd(TIM6, ENABLE);//启动定时器 
+	
+	ina219_init();
+	
 	Delay_ms(100);          //等待初始化完成
 }
 
